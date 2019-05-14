@@ -10,7 +10,7 @@ This is format for 3d models
 no textures and materials in this version.
 
 ### install devDependencies
-  utils-install-modules
+    make utils-install-modules
 
 ### docs
   see <a href="specification.md">specification.md</a>

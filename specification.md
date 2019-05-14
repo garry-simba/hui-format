@@ -36,7 +36,7 @@ Node data consists of attributes with binary data;
 
 
 |Attribute type| data description|
-|--|--|--|
+|--|--|
 |GEOMETRY_ATTR_VERTICIES = 1| Float16 verticies x, y, z interleaved|
 |GEOMETRY_ATTR_TRIANGLE_FACES = 2| Uint16 vertex indices a,b,c interleaved|
 |GEOMETRY_ATTR_SKIN_INDICES = 3| Uint8 bone numbers a, b, c, d for each vertex|
@@ -63,19 +63,19 @@ Each bone local coordinate system has same direction as global.
 
 ###### bone record
 |[0][1]|[2][3]|[4][5]|[6][7]|[8][9]|[10][11]|[12][13]
-|--|--|
+|--|--|--|--|--|--|--|
 |head x|head y| head z| tail x| tail y| tail z| parent index. 0xFFFF if no parent|
 |float16|float16|float16|float16|float16|float16|Uint16|
 
 #### NODE_ANIMATION_CLIP = 4
 |[0][1]|[2]..[n]|[n]...|
-|--|--|
+|--|--|--|
 |clip name length| clip name | tracks data|
 
 Tracks data consist of tracks
 ###### track record
-|[0]|[1][2][3]|[4]...
-|--|--|
+|[0]|[1][2][3]|[4]...|
+|--|--|--|
 |track type| track length in bytes|structure depends of track type|
 
 Track types:
@@ -83,14 +83,16 @@ Track types:
 TRACK_BONE_POSITION_KEYFRAMES = 1
 
 |[0]|[1][2][3]|[4][5]|([6,7], [8,9], [10,11], [12,13])...|
-|--|--|
+|--|--|--|--|
 |type = 1| track length|bone number|(dt, x, y, z):float16|
+
 dt - delta time from previous frame;<br>
 x,y,z - relative displacement in parent bone's local coordinate system
 
 TRACK_BONE_ROTATION_KEYFRAMES = 2
 
 |[0]|[1][2][3]|[4][5]|([6,7], [8,9], [10,11], [12,13])...|
-|--|--|
+|--|--|--|--|
 |type = 2| track length|bone number|(dt, ax, ay, az):float16|
+
 ax, ay, az - components of normalized rotation quaternion
