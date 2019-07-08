@@ -8,21 +8,24 @@ version 0.2.0
 - Small file size
 
 
-## Format description
-Hui file consists of nodes, numbered from 0 at start of the file.
-Node header:
-
-|bytes:|[0]|[1][2][3]|[4]...|
-|--|--|--|--|
-|values:|Node type|Node lengh in bytes|Node data
-
-
-### Types
+### Non standard types
  All numbers are little-endian. it means Uint(04 00 00 00) = 4;
 
  There are also some non-standard types:
- - 3 bytes unsigned integer: (LE) val = b1 + b2<<8 + b3 <<16
+ - 24 bits unsigned integer - uInt24: (LE) val = b1 + b2<<8 + b3 <<16
  - float 16 - 16 bit float type IEEE 754
+
+## Format description
+
+Hui file consists of nodes, numbered from 0 at start of the file. Each node has 4 byte a header.
+Node header:
+
+|[0]|[1][2][3]|
+|--|--|--|--|
+|byte|uInt24|
+|Node type|Node length in bytes (with header)|
+After header there is a node data.
+
 
 ### Node types
 #### NODE_GEOMETRY = 1;
@@ -32,6 +35,7 @@ Node data consists of attributes with binary data;
 ###### geometry node attribute
 |[0]|[1][2][3]|[4]...|
 |--|--|--|
+|byte|uInt24||
 |attribute type| attribute length in bytes|attribute data|
 
 
@@ -47,6 +51,7 @@ Mesh data consists of parameters with links to other nodes (numbers of other nod
 ###### mesh node parameter
 |[0][1]|[2][3]|
 |--|--|
+|uint16| uint16|
 |parameter type|parameter value|
 
 ###### mesh parameters
@@ -64,8 +69,9 @@ Each bone local coordinate system has same direction as global.
 ###### bone record
 |[0][1]|[2][3]|[4][5]|[6][7]|[8][9]|[10][11]|[12][13]
 |--|--|--|--|--|--|--|
-|head x|head y| head z| tail x| tail y| tail z| parent index. 0xFFFF if no parent|
 |float16|float16|float16|float16|float16|float16|Uint16|
+|head x|head y| head z| tail x| tail y| tail z| parent index. 0xFFFF if no parent|
+
 
 #### NODE_ANIMATION_CLIP = 4
 |[0][1]|[2]..[n]|[n]...|
