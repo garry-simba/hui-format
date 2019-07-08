@@ -17,7 +17,7 @@ version 0.2.0
 
 ## Format description
 
-Hui file consists of nodes, numbered from 0 at start of the file. Each node has 4 byte a header.
+Hui file consists of nodes, numbered from 0 at start of the file. Each node has 4 byte header.
 Node header:
 
 |[0]|[1][2][3]|
