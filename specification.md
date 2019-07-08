@@ -21,9 +21,10 @@ Hui file consists of nodes, numbered from 0 at start of the file. Each node has 
 Node header:
 
 |[0]|[1][2][3]|
-|--|--|--|--|
+|--|--|
 |byte|uInt24|
 |Node type|Node length in bytes (with header)|
+
 After header there is a node data.
 
 
